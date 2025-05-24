@@ -1,0 +1,5 @@
+artifacts/raw/
+artifacts/processed/vector_db/
+artifacts/retrieval/
+logs/
+rag_genai.egg-info/

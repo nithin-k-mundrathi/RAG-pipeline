@@ -1,0 +1,10 @@
+bs4
+pandas
+numpy
+setuptools
+langchain
+langchain-community
+langchain-huggingface
+sentence-transformers
+faiss-cpu
+streamlit

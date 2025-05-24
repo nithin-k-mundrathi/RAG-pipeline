@@ -1,0 +1,31 @@
+data_ingestion:
+  bucket_name : "rag-genai-p-2-data"
+  content_file_name : "content_data.txt"
+  urls :  [ "https://en.wikipedia.org/wiki/Space_exploration", 
+            "https://en.wikipedia.org/wiki/Hollywood",
+            "https://en.wikipedia.org/wiki/Association_football",
+            "https://en.wikipedia.org/wiki/Cricket",
+            "https://en.wikipedia.org/wiki/International_Space_Station",
+            "https://en.wikipedia.org/wiki/YouTube",
+            "https://en.wikipedia.org/wiki/KPMG",
+            "https://en.wikipedia.org/wiki/JPMorgan_Chase",
+            "https://en.wikipedia.org/wiki/Galileo_Galilei",
+            "https://en.wikipedia.org/wiki/Unitedkingdom", 
+            "https://en.wikipedia.org/wiki/India" 
+            ]
+
+data_processing:
+  chunk_size : 1000
+  embedding_model : 'all-MiniLM-L6-v2'
+  text_to_text_model : "google/long-t5-tglobal-base"
+
+data_retriever:
+  embedding_model : 'all-MiniLM-L6-v2'
+  text_to_text_model : "google/long-t5-tglobal-base"
+  top_k : 10
+
+data_generator:
+  text_to_text_model : "google/long-t5-tglobal-base"
+  top_k : 10
+
+
