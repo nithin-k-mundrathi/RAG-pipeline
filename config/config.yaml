@@ -1,16 +1,20 @@
 data_ingestion:
   bucket_name : "rag-genai-p-2-data"
   content_file_name : "content_data.txt"
-  urls :  [ "https://en.wikipedia.org/wiki/Space_exploration", 
-            "https://en.wikipedia.org/wiki/Hollywood",
-            "https://en.wikipedia.org/wiki/Association_football",
-            "https://en.wikipedia.org/wiki/Cricket",
-            "https://en.wikipedia.org/wiki/International_Space_Station",
-            "https://en.wikipedia.org/wiki/YouTube",
-            "https://en.wikipedia.org/wiki/KPMG",
-            "https://en.wikipedia.org/wiki/JPMorgan_Chase",
-            "https://en.wikipedia.org/wiki/Galileo_Galilei",
-            "https://en.wikipedia.org/wiki/India" 
+  urls :  [ "https://en.wikipedia.org/wiki/World_War_II", 
+            "https://en.wikipedia.org/wiki/Allies_of_World_War_II",
+            "https://en.wikipedia.org/wiki/Axis_powers",
+            "https://en.wikipedia.org/wiki/Battle_of_Stalingrad",
+            "https://en.wikipedia.org/wiki/Pacific_War",
+            "https://en.wikipedia.org/wiki/Battle_of_Britain",
+            "https://en.wikipedia.org/wiki/Operation_Barbarossa",
+            "https://en.wikipedia.org/wiki/Adolf_Hitler",
+            "https://en.wikipedia.org/wiki/Winston_Churchill",
+            "https://en.wikipedia.org/wiki/Franklin_D._Roosevelt", 
+            "https://en.wikipedia.org/wiki/Manhattan_Project",
+            "https://en.wikipedia.org/wiki/Joseph_Stalin",
+            "https://en.wikipedia.org/wiki/Aftermath_of_World_War_II",
+            "https://en.wikipedia.org/wiki/United_Nations",            
             ]
 embedding_model : 'all-MiniLM-L6-v2'
 text_to_text_model : "google/long-t5-tglobal-base"
