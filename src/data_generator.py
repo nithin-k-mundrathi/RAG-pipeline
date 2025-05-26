@@ -57,7 +57,7 @@ class DataGenerator:
             logger.info("Prepared prompt by combining question and context chunks.")
 
             # Format prompt input for model consumption
-            prompt = f"Question: {self.query}\n\nContext:\n{total_context}"
+            prompt = f"<|user|> Relevant information: {total_context} Provide answer to question with relevant information provided above: {self.query}<|end|> <|assistant|>"
 
             # Tokenize prompt with padding and truncation
             inputs = self.tokenizer(

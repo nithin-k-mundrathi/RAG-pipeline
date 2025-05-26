@@ -1,7 +1,5 @@
 from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
-import os
-from src.custom_exception import CustomException
 from config.paths_config import *
 from langchain_huggingface  import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -36,7 +34,7 @@ llm = HuggingFacePipeline(pipeline=llm_pipeline)
 rag = RetrievalQA.from_chain_type(
  llm=llm,
  chain_type='stuff',
- retriever=vector_db_loaded.as_retriever(search_kwargs={"k": 10}),
+ retriever=vector_db_loaded.as_retriever(search_kwargs={"k": 5}),
  chain_type_kwargs={
  "prompt": prompt
  },

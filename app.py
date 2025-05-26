@@ -8,7 +8,7 @@ from transformers import pipeline
 from config.paths_config import *
 from utils.common_functions import read_yaml
 
-config = read_yaml(CONFIG_PATH)['data_processing']
+config = read_yaml(CONFIG_PATH)
 
 # Title
 st.set_page_config(page_title="RAG QA App")
@@ -48,7 +48,7 @@ def get_prompt_template():
 # Initialize RAG chain
 @st.cache_resource
 def build_rag_chain():
-    retriever = load_vector_db().as_retriever(search_kwargs={"k": 10})
+    retriever = load_vector_db().as_retriever(search_kwargs={"k": config['data_generator']['top_k']})
     prompt = get_prompt_template()
     llm = load_llm()
     rag_chain = RetrievalQA.from_chain_type(
