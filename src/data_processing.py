@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from src.logger import get_logger
 from src.custom_exception import CustomException
 from config.paths_config import *
@@ -9,13 +10,16 @@ from langchain_community.vectorstores import FAISS
 logger = get_logger(__name__)
 
 class DataProcessor:
-    def __init__(self,config,input_file,output_dir,vectordb_path):
+    def __init__(self,config,input_file,output_dir,chunks_df_path,vectordb_path):
+        self.embedding_model = config["embedding_model"]
         self.config = config["data_processing"]
         self.chunk_size = self.config["chunk_size"]
-        self.embedding_model = self.config["embedding_model"]
+        self.overlap_chunk_size = self.config['overlap_chunk_size']
+        
         self.input_file = input_file
         self.output_dir = output_dir
         self.vectordb_path = vectordb_path
+        self.chunks_df_path = chunks_df_path
 
         self.content_data = None
         self.chunked_data = None 
@@ -39,12 +43,18 @@ class DataProcessor:
 
     def chunking_data(self):
         try:
-            logger.info("Chunking the data based on the chunk size")
+            logger.info("Chunking the data based on the chunk size with overlapping chunks")
 
             CHUNK_SIZE = self.chunk_size
-            self.chunked_data = [self.content_data[i:i+CHUNK_SIZE] for i in range(0,len(self.content_data), CHUNK_SIZE)]
+            self.chunked_data = [self.content_data[i:i+CHUNK_SIZE] for i in range(0,len(self.content_data), CHUNK_SIZE-self.overlap_chunk_size)]
+            
+            # Convert to DataFrame
+            df_chunks = pd.DataFrame(self.chunked_data , columns=["chunks_text"])
 
-            logger.info("Chunking of data is successfully completed")
+            # Store the chunks in a Processed folder
+            df_chunks.to_csv(self.chunks_df_path, index = False)
+            
+            logger.info("Chunking of data with overlapping is successfully completed")
         except Exception as e:
             logger.error(f"Error while Chunking data during data procesing from input file: {e}")
             raise CustomException("failed to chunk data during data procesing from input file", e)
@@ -95,5 +105,5 @@ class DataProcessor:
 
 if __name__ == "__main__":
 
-    data_processor = DataProcessor(read_yaml(CONFIG_PATH),CONTENT_DATA_TXT,PROCESSED_DIR,VECTORDB_PATH)
+    data_processor = DataProcessor(read_yaml(CONFIG_PATH),CONTENT_DATA_TXT,PROCESSED_DIR,CHUNKS_DF_PATH,VECTORDB_PATH)
     data_processor.run()

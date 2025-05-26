@@ -9,7 +9,7 @@ if __name__ == "__main__":
     data_ingestion = DataIngestion(read_yaml(CONFIG_PATH))
     data_ingestion.run()
 
-    data_processor = DataProcessor(read_yaml(CONFIG_PATH),CONTENT_DATA_TXT,PROCESSED_DIR,VECTORDB_PATH)
+    data_processor = DataProcessor(read_yaml(CONFIG_PATH),CONTENT_DATA_TXT,PROCESSED_DIR,CHUNKS_DF_PATH,VECTORDB_PATH)
     data_processor.run()
 
     data_retriever = DataRetriever(read_yaml(CONFIG_PATH),VECTORDB_PATH,RETRIEVED_DF_PATH,RETRIEVAL_DIR)

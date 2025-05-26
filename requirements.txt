@@ -8,3 +8,7 @@ langchain-huggingface
 sentence-transformers
 faiss-cpu
 streamlit
+dvc
+dvc-gs
+google-cloud-storage
+ragas

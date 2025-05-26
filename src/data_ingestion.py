@@ -28,7 +28,6 @@ class DataIngestion:
             else:
                 logger.info("Content file Doesn't exists")
                 with open(os.path.join(RAW_DIR,self.file_name),'w', encoding='utf-8') as file:
-
                     for url in self.urls:
 
                         clean_article_text = fetch_and_clean(url)

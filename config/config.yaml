@@ -10,22 +10,17 @@ data_ingestion:
             "https://en.wikipedia.org/wiki/KPMG",
             "https://en.wikipedia.org/wiki/JPMorgan_Chase",
             "https://en.wikipedia.org/wiki/Galileo_Galilei",
-            "https://en.wikipedia.org/wiki/Unitedkingdom", 
             "https://en.wikipedia.org/wiki/India" 
             ]
+embedding_model : 'all-MiniLM-L6-v2'
+text_to_text_model : "google/long-t5-tglobal-base"
 
 data_processing:
   chunk_size : 1000
-  embedding_model : 'all-MiniLM-L6-v2'
-  text_to_text_model : "google/long-t5-tglobal-base"
+  overlap_chunk_size : 300
 
 data_retriever:
-  embedding_model : 'all-MiniLM-L6-v2'
-  text_to_text_model : "google/long-t5-tglobal-base"
   top_k : 10
 
 data_generator:
-  text_to_text_model : "google/long-t5-tglobal-base"
   top_k : 10
-
-

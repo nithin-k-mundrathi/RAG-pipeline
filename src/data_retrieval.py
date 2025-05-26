@@ -14,8 +14,8 @@ logger = get_logger(__name__)
 class DataRetriever:
     def __init__(self, config, vectordb_path, retrieved_df_path, output_dir):
         # Load config parameters relevant to data retrieval
+        self.embedding_model = config["embedding_model"]
         self.config = config["data_retriever"]
-        self.embedding_model = self.config["embedding_model"]
         self.top_k = self.config["top_k"]
         self.output_dir = output_dir
 
@@ -45,7 +45,7 @@ class DataRetriever:
     def load_vectordb(self):
         try:
             # Initialize embedding model and load vector database from local storage
-            self.model_embedding = HuggingFaceEmbeddings(model_name=self.config['embedding_model'])
+            self.model_embedding = HuggingFaceEmbeddings(model_name=self.embedding_model)
             self.vector_db = FAISS.load_local(
                 self.vectordb_path,
                 self.model_embedding,
@@ -91,15 +91,34 @@ class DataRetriever:
                     top_k_chunks.append(self.vector_db.docstore._dict[doc_id])
 
             logger.info("Compiling top chunks and similarity scores into dataframe for downstream processing")
-            data = [{
+
+            new_data = [{
                 "query": self.question,
                 "score": score,
                 "document": doc.page_content
             } for doc, score in zip(top_k_chunks, top_k_scores)]
 
-            data_df = pd.DataFrame(data)
-            data_df.to_csv(self.retrieved_df_path, index=False)
-            logger.info(f"Saved retrieved chunks dataframe to {self.retrieved_df_path}")
+            new_df = pd.DataFrame(new_data)
+
+            os.makedirs(os.path.dirname(self.retrieved_df_path), exist_ok=True)
+
+            if os.path.exists(self.retrieved_df_path):
+                try:
+                    existing_df = pd.read_csv(self.retrieved_df_path)
+
+                    if set(existing_df.columns) == set(new_df.columns):
+                        combined_df = pd.concat([existing_df, new_df], ignore_index=True)
+                    else:
+                        logger.warning("⚠️ Column mismatch. Overwriting retrieval file.")
+                        combined_df = new_df
+                except Exception as e:
+                    logger.warning(f"⚠️ Failed to read existing file. Overwriting. Reason: {e}")
+                    combined_df = new_df
+            else:
+                combined_df = new_df
+
+            combined_df.to_csv(self.retrieved_df_path, index=False)
+            logger.info(f"Retrieved chunks saved to: {self.retrieved_df_path}")
 
         except Exception as e:
             logger.error("Failed to save retrieved chunks into dataframe")
