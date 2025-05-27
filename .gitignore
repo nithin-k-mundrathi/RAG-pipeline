@@ -5,3 +5,5 @@ artifacts/retrieval/
 artifacts/generator/
 logs/
 rag_genai.egg-info/
+artifacts/processed/chunks.csv
+artifacts/processed/generator_df.csv
