@@ -1,8 +1,6 @@
 artifacts/raw/
 artifacts/processed/vector_db/
 artifacts/processed/
-artifacts/processed/chunks.csv
-artifacts/processed/generator_df.csv
 artifacts/retrieval/
 artifacts/generator/
 logs/
