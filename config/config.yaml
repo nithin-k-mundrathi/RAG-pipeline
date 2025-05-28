@@ -1,20 +1,15 @@
 data_ingestion:
   bucket_name : "rag-genai-p-2-data"
   content_file_name : "content_data.txt"
-  urls :  [ "https://en.wikipedia.org/wiki/World_War_II", 
-            "https://en.wikipedia.org/wiki/Allies_of_World_War_II",
-            "https://en.wikipedia.org/wiki/Axis_powers",
+  urls :  [ 
             "https://en.wikipedia.org/wiki/Battle_of_Stalingrad",
             "https://en.wikipedia.org/wiki/Pacific_War",
             "https://en.wikipedia.org/wiki/Battle_of_Britain",
-            "https://en.wikipedia.org/wiki/Operation_Barbarossa",
-            "https://en.wikipedia.org/wiki/Adolf_Hitler",
-            "https://en.wikipedia.org/wiki/Winston_Churchill",
-            "https://en.wikipedia.org/wiki/Franklin_D._Roosevelt", 
-            "https://en.wikipedia.org/wiki/Manhattan_Project",
-            "https://en.wikipedia.org/wiki/Joseph_Stalin",
-            "https://en.wikipedia.org/wiki/Aftermath_of_World_War_II",
-            "https://en.wikipedia.org/wiki/United_Nations",            
+            "https://en.wikipedia.org/wiki/Aftermath_of_World_War_II",    
+            "https://en.wikipedia.org/wiki/Outline_of_World_War_II",
+            "https://en.wikipedia.org/wiki/Causes_of_World_War_II",
+            "https://en.wikipedia.org/wiki/Military_history_of_the_United_States_during_World_War_II",
+            "https://en.wikipedia.org/wiki/Winston_Churchill_in_the_Second_World_War"
             ]
 embedding_model : 'all-MiniLM-L6-v2'
 text_to_text_model : "google/long-t5-tglobal-base"

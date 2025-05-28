@@ -7,6 +7,7 @@ from src.custom_exception import CustomException
 from config.paths_config import *
 from utils.common_functions import read_yaml
 from utils.helpers import fetch_and_clean
+from utils.helpers import clean_text_nltk
 
 logger = get_logger(__name__)
 
@@ -31,6 +32,10 @@ class DataIngestion:
                     for url in self.urls:
 
                         clean_article_text = fetch_and_clean(url)
+                        if len(clean_article_text) >100:
+                            print("Processing article" + '----' +url)
+
+                        clean_article_text = clean_text_nltk(clean_article_text)
                         file.write(clean_article_text + '\n')
 
             logger.info("Data from Urls is written into content file")

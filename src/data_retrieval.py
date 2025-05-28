@@ -81,9 +81,12 @@ class DataRetriever:
     def save_retrieved_chunks(self):
         try:
             logger.info(f"Selecting top {self.top_k} chunks most similar to the question")
+            # gives u the index ascending order
             top_k_indices = self.similarities.argsort()[-self.top_k:][::-1]
+            # extract the scores from the index's
             top_k_scores = self.similarities[top_k_indices]
 
+            # use the top-k index's to getback the chunks from vectorDB.
             top_k_chunks = []
             for i in top_k_indices:
                 doc_id = self.vector_db.index_to_docstore_id.get(i)
